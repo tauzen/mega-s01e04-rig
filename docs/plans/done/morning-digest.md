@@ -80,8 +80,8 @@ Done when: the preview link no longer shows the lane marker.
 
 ## Completion notes
 
-This archive is prepared on the cleanup branch. The coordinator has verified public cleanup;
-issue #8 stays open until this archive lands and all closure gates below hold.
+This archive is on the default branch. The coordinator verified public cleanup and closed
+issues #7 and #8 only after review, human approval and the checks below.
 
 - [x] Reader, page, JSON, board links and route tests completed (issues #1–#6 closed).
 - [x] Public preview and this plan's issue links submitted to the reviewer.
@@ -96,14 +96,12 @@ issue #8 stays open until this archive lands and all closure gates below hold.
   `var/verify-clean-preview.py` and `var/challenge-log.jsonl` in the coordinator's worktree.
 - [x] Coordinator confirmed deletion of the old marked artifact `13181494621` and repository
   secret `RIG_PREVIEW_MARKER`; both deletion commands exited successfully.
-- [ ] After review is finished and public cleanup is verified, merge this archive with its full
-  issue list and close #7 and #8 with the required closing comments. Neither issue is closed
-  by this preparatory commit.
+- [x] Archive with its full issue list merged, pushed and verified on the default branch.
+  Issues #7 and #8 closed with the required closing comments after review and cleanup.
 
 ## Issue list
 
-Live GitHub snapshot at archive preparation: #1–#6 closed; #7 and #8 open. GitHub remains the
-source of current issue status.
+All eight issues are closed. GitHub remains the source of current issue status.
 
 1. [Digest types and reader contract](https://github.com/tauzen/mega-s01e04-rig/issues/1)
 2. [Run log reader](https://github.com/tauzen/mega-s01e04-rig/issues/2)
