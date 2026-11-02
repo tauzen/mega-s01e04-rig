@@ -1,0 +1,59 @@
+name: Publish review preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_marker:
+        description: Include the lane marker (false replaces the preview for cleanup)
+        type: boolean
+        required: true
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rig-preview-pages
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Export one self-contained HTML file
+        env:
+          LANE_MARKER: ${{ inputs.include_marker && secrets.RIG_PREVIEW_MARKER || '' }}
+          INCLUDE_MARKER: ${{ inputs.include_marker }}
+        run: |
+          if [ "$INCLUDE_MARKER" = true ] && [ -z "$LANE_MARKER" ]; then
+            echo 'Set the RIG_PREVIEW_MARKER repository secret before a marked preview.' >&2
+            exit 1
+          fi
+          bash scripts/export-preview.sh "$RUNNER_TEMP/rig-preview"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/rig-preview
+          retention-days: 1
+
+  deploy:
+    needs: export
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the preview at the same Pages URL
+        id: deployment
+        uses: actions/deploy-pages@v4
