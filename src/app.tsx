@@ -2,6 +2,9 @@ import { Hono } from 'hono';
 import { loadConfig, type RigConfig } from './config.js';
 import { lane } from './lane.js';
 import { readStatus } from './status.js';
+import { readNight } from './digest/reader.js';
+import { registerDigestPage } from './digest/page-route.js';
+import { registerDigestJson } from './digest/json-route.js';
 import { Layout } from './views/layout.js';
 import { StatusBoard } from './views/status.js';
 
@@ -10,10 +13,13 @@ export function createApp(config: RigConfig = loadConfig()) {
 
   app.get('/health', (c) => c.json({ ok: true, lane: lane().id }));
 
+  registerDigestPage(app, config.runsDir, readNight);
+  registerDigestJson(app, config.runsDir, readNight);
+
   app.get('/', (c) =>
     c.html(
       <Layout title="status" lane={lane()}>
-        <StatusBoard status={readStatus(config)} />
+        <StatusBoard status={readStatus(config, readNight)} />
       </Layout>,
     ),
   );

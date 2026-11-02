@@ -1,13 +1,13 @@
 # Review preview · issue #7
 
-Prepared locally only. Publishing and reviewer submission still need explicit human approval.
+Publishing and reviewer submission need explicit human approval.
 Issue #7 stays open until the reviewer receives the preview URL and the plan's issue links.
 Digest issues #2–#6 must land first. Never commit a preview, attach it to an issue/chat, or
 change `runs/`.
 
 ## Local export (no publishing)
 
-Use Node 24 and pnpm 10. From the repository root, with dependencies already available:
+Use Node 24 and pnpm 12.16.1. From the repository root, with dependencies already available:
 
 ```sh
 pnpm install --frozen-lockfile
