@@ -1,7 +1,8 @@
 # Review preview · issue #7
 
 Publishing and reviewer submission need explicit human approval.
-Issue #7 stays open until the reviewer receives the preview URL and the plan's issue links.
+Issue #7 stays open through the reviewer actually viewing the preview, not just receiving the
+preview URL and the plan's issue links. Initial submission alone does not finish review.
 Digest issues #2–#6 must land first. Never commit a preview, attach it to an issue/chat, or
 change `runs/`.
 
@@ -48,9 +49,15 @@ public copies cannot be recalled. Workflow artifacts also hold the HTML for up t
 5. Open the deployment's HTTPS URL (normally `https://tauzen.github.io/mega-s01e04-rig/`),
    verify the digest and banner, then send that URL and issue links #1–#8 from this repository
    through the course reviewer submission. Do not send the HTML or marker separately.
-   Only after submission does issue #7 meet its done condition.
+   Keep issue #7 open after submission until the course confirms the reviewer has actually
+   seen the preview and review is finished. Do not replace the marked preview before then.
 
 ## Cleanup at the same URL (separate approval if not already covered)
+
+Wait until review is finished and issue #7's reviewer-viewing gate is satisfied. Obtain explicit
+human approval for marker-free replacement, marked artifact/secret deletion, plan archival and
+issue closure before taking those actions. Issue #8 stays open while review, approval, public
+verification or archival is pending.
 
 1. Dispatch the same workflow on the same approved branch with `include_marker` **unchecked**.
    This explicitly sets `LANE_MARKER` to an empty string even while the secret exists.
@@ -60,5 +67,13 @@ public copies cannot be recalled. Workflow artifacts also hold the HTML for up t
    if still present (including failed/cancelled deployments that uploaded one). Artifacts expire
    after one day, but deleting them now removes the retained marked copies sooner. Delete the
    repository secret when no longer needed. Do not delete git history: it contains no preview.
-4. Record cleanup under issue #8. To remove the entire site instead, use Pages **Unpublish site**
+4. Archive `plan.md` as `docs/plans/done/morning-digest.md` with `status: done`, the original
+   checkable sections and the full plan issue list from GitHub. An archive may be prepared on a
+   branch, but must not be merged as finished until public cleanup verification passes.
+5. Record verified cleanup under issue #8. Close it only after review is finished, human
+   approval is recorded, the same URL reads **no marker set** with the digest intact, approved
+   marked artifact/secret cleanup is confirmed, and the finished archive with issue links has
+   landed. Use the closing-comment format in `AGENTS.md`; a preparatory commit must use
+   `refs #8`, not `closes #8`.
+   To remove the entire site instead, use Pages **Unpublish site**
    after approval; the normal plan requires the marker-free replacement at the original URL.

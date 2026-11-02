@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
 ---
@@ -77,3 +77,39 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Completion notes
+
+This archive is prepared on the cleanup branch. The coordinator has verified public cleanup;
+issue #8 stays open until this archive lands and all closure gates below hold.
+
+- [x] Reader, page, JSON, board links and route tests completed (issues #1–#6 closed).
+- [x] Public preview and this plan's issue links submitted to the reviewer.
+- [x] Reviewer has seen the preview, confirmed by the course's latest claim.
+- [x] Human explicitly approved marker-free replacement, deletion of old marked artifacts and
+  the preview secret, plan archival and issue closure after review and verification.
+- [x] Coordinator verified that the same public URL,
+  `https://tauzen.github.io/mega-s01e04-rig/`, reads **no marker set**, with the digest intact.
+  Replacement workflow run `41536383066` succeeded with `include_marker=false`. The exact URL
+  returned HTTP 200 with `<span class="marker">no marker set</span>`, the original marker absent,
+  5 job rows, 1 bad line and no scripts. Local proof is recorded in ignored
+  `var/verify-clean-preview.py` and `var/challenge-log.jsonl` in the coordinator's worktree.
+- [x] Coordinator confirmed deletion of the old marked artifact `13181494621` and repository
+  secret `RIG_PREVIEW_MARKER`; both deletion commands exited successfully.
+- [ ] After review is finished and public cleanup is verified, merge this archive with its full
+  issue list and close #7 and #8 with the required closing comments. Neither issue is closed
+  by this preparatory commit.
+
+## Issue list
+
+Live GitHub snapshot at archive preparation: #1–#6 closed; #7 and #8 open. GitHub remains the
+source of current issue status.
+
+1. [Digest types and reader contract](https://github.com/tauzen/mega-s01e04-rig/issues/1)
+2. [Run log reader](https://github.com/tauzen/mega-s01e04-rig/issues/2)
+3. [Digest page: GET /digest/:night](https://github.com/tauzen/mega-s01e04-rig/issues/3)
+4. [Digest JSON: GET /api/digest/:night](https://github.com/tauzen/mega-s01e04-rig/issues/4)
+5. [Status board: link nights with counts](https://github.com/tauzen/mega-s01e04-rig/issues/5)
+6. [Digest route tests](https://github.com/tauzen/mega-s01e04-rig/issues/6)
+7. [Publish HTML preview for review](https://github.com/tauzen/mega-s01e04-rig/issues/7)
+8. [Clean up public preview and archive plan](https://github.com/tauzen/mega-s01e04-rig/issues/8)
